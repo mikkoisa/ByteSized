@@ -1,0 +1,65 @@
+<ion-header>
+<ion-toolbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-30><button ion-button clear color="light" (click)='navHome();' >Bytesized</button></ion-col>
+      <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
+      <ion-col offset-20 width-20><button ion-button clear color="light" (click)='navUpload();'>Upload</button></ion-col>
+      <ion-col width-20><button ion-button clear color="light" (click)='navLogin();'>Login</button></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+logged: {{loginservice.logged}}
+username: {{loginservice.getUser().username}}
+
+
+
+    <div class="bottom">
+  <ion-grid>
+
+
+<form #uploadForm="ngForm" (ngSubmit)="upload(uploadForm.value)">
+
+
+
+  <ion-label>file:</ion-label>
+  <ion-icon name="film"></ion-icon>
+  <button type="file" (click)="selectVideo()">select video</button>
+  <!--<ion-input type="file" placeholder="upload file..." name="file" ngModel />-->
+
+
+  <ion-item>
+  <ion-label>title:</ion-label>
+  <ion-input type="text" name="title" ngModel required></ion-input>
+</ion-item>
+
+ <ion-item>
+  <ion-label>description:</ion-label>
+  <ion-input type="text" name="desc" ngModel></ion-input>
+ </ion-item>
+
+
+  <button type="submit" [disabled]="!uploadForm.valid">submit</button>
+
+</form>
+
+ <ion-item>
+  
+    
+</ion-item>
+
+videoUrl: {{videoUrl}}
+  videoSelected: {{videoSelected}}
+
+  <br>
+  upattu: {{upattu}}
+
+  <h4>{{progress}}%</h4>
+
+  </ion-grid>
+  </div>
+</ion-content>

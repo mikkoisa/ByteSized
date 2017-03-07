@@ -1,0 +1,87 @@
+<ion-header>
+<ion-toolbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-30><button ion-button clear color="light">Bytesized</button></ion-col>
+      <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
+      <ion-col offset-20 width-20><button ion-button clear color="light" (click)='navUpload();'>Upload</button></ion-col>
+      <ion-col *ngIf="loginservice.logged == false" width-20><button ion-button clear color="light" (click)='navLogin();'>Login</button></ion-col>
+      <ion-col *ngIf="loginservice.logged == true" width-20><button ion-button clear color="light">{{loginservice.getUser().username}}</button></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>
+</ion-header>
+
+<ion-menu class="menu" side="right" [content]="mycontent">
+  <ion-content>
+    <ion-list>
+      <ion-item menuClose detail-none>Close Menu</ion-item>
+      <ion-item> Stuff</ion-item>
+      <ion-item> Stuff</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
+
+<ion-content>
+  <div class="top">
+
+    logged: {{loginservice.logged}}
+  <ion-grid>
+    <p>Popular Categories</p>
+    <ion-row wrap >
+       <!--<ion-col col-6 col-sm-4 *ngFor="let category of categories">-->
+         <ion-list no-lines col-6 col-sm-4 *ngFor="let category of categories">
+           <ion-item><button ion-button clear class={{category}}>{{category}}</button></ion-item>
+         </ion-list>
+       <!--</ion-col>-->       
+    </ion-row>
+      <p class="more">More categories>></p>
+  </ion-grid>
+  </div>
+
+  <div class="top">
+  <ion-grid>
+    <p>Categorized as {{cate}}</p>
+  </ion-grid>
+  </div>
+
+  <div class="bottom">
+  <ion-grid>
+    <ion-row wrap>
+         <ion-list>
+
+           <ion-item col-12>
+             <video width="100%" height="100%" controls>
+                <source src="http://video.webmfiles.org/big-buck-bunny_trailer.webm" type="video/webm">
+                Your browser does not support the video tag.
+             </video>
+
+           </ion-item>
+
+            <ion-item col-12>
+             <p class="info">Information <br> about the video <br> comes here </p>
+            </ion-item>
+
+            <ion-item col-12>
+             <video width="100%" height="100%" controls>
+                <source src="http://video.webmfiles.org/big-buck-bunny_trailer.webm" type="video/webm">
+                Your browser does not support the video tag.
+             </video>
+           </ion-item>
+
+           <ion-item col-12>
+             <video width="100%" height="100%" controls>
+                <source src="http://video.webmfiles.org/big-buck-bunny_trailer.webm" type="video/webm">
+                Your browser does not support the video tag.
+             </video>
+           </ion-item>
+
+         </ion-list>
+    </ion-row>
+  </ion-grid>
+  </div>
+
+</ion-content>
+

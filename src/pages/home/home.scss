@@ -1,0 +1,155 @@
+page-home {
+
+}
+
+@media screen and (max-width: 425px) {
+    a {
+        font-size: small;
+    }
+}
+
+/*@media screen and (max-width: 567px) {
+    .cat5, .cat6, .cat7, .cat8 {
+        display: none;
+    }
+}*/
+
+@media screen and (min-width: 641px) {
+    .top {
+        padding-left:5%;
+        padding-right:5%;
+        margin-left:10%;
+        margin-right: 10%; 
+    }
+    .bottom {
+        margin-left:10%;
+        margin-right: 10%; 
+    }
+
+}
+
+.top {
+    padding-top:1%;
+
+
+    background-color: #F2D383;
+    border-top-style: solid;
+    border-top-width: 10px;
+    border-top-color: #D2B579;
+}
+
+.bottom{
+    padding-left: 7%;
+    padding-right: 7%;
+
+    background-color: gray;
+    padding-top:1%;
+    border-top-style: solid;
+    border-top-width: 10px;
+    border-top-color: #606060;
+}
+
+
+.cat1 {
+ /*   float: left; */
+    border: solid;
+    border-color: #606060;
+    background-color: #819cba;
+
+}
+
+.cat2{
+/*  float: center; */
+    border: solid;
+    border-color: #606060;
+    background-color: #56779b;
+}
+
+.cat3{
+/*    float: center; */
+    border: solid;
+    border-color: #606060;
+    background-color: #C37247;
+}
+.cat4{
+/*    float: right; */
+    border: solid;
+    border-color: #606060;
+    background-color: #64aa3e;
+}
+
+.cat5 {
+ /*   float: left; */
+    border: solid;
+    border-color: #606060;
+    background-color: #819cba;
+}
+
+.cat6 {
+ /*   float: left; */
+    border: solid;
+    border-color: #606060;
+    background-color: #819cba;
+}
+.cat7 {
+ /*   float: left; */
+    border: solid;
+    border-color: #606060;
+    background-color: #819cba;
+}
+
+.cat8 {
+ /*   float: left; */
+    border: solid;
+    border-color: #606060;
+    background-color: #819cba;
+} 
+
+.info {
+    background-color: #b0b0b9;
+    margin-bottom: 40px; //does not work
+}
+
+.grid {
+    padding-left: 20px;
+}
+
+.list.list-md {
+    margin: -1px 0 7px 0;
+}
+
+.item-md {
+    padding-left: 0px;
+}
+
+
+.label.label-md {
+    margin: 0;
+}
+
+
+button {
+   /* border-style:solid ; 
+    border-color: black; */
+    background-color: #819cba;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding-top: 15%;
+    padding-bottom: 15%;
+    
+
+    text-decoration: none;
+
+}
+
+button:hover {
+    background-color: #BFA6A8;
+}
+
+video {
+    
+}
+
