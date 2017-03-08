@@ -25,15 +25,14 @@
 <ion-nav #mycontent [root]="rootPage"></ion-nav>
 
 <ion-content>
-  logged: {{loginservice.logged}}
 
-  <div class="top">
+  <div *ngIf="opened" class="top">
     <ion-grid>
       <p>Popular Categories</p>
       <ion-row wrap>
         <!--<ion-col col-6 col-sm-4 *ngFor="let category of categories">-->
         <ion-list no-lines col-6 col-sm-4 *ngFor="let category of categories">
-          <ion-item><button ion-button clear class={{category}}>{{category}}</button></ion-item>
+          <ion-item><button ion-button clear class={{category}} (click) = 'chooseCat(category)'>{{category}}</button></ion-item>
         </ion-list>
         <!--</ion-col>-->
       </ion-row>
@@ -41,50 +40,67 @@
     </ion-grid>
   </div>
 
-  <div class="smalltop">
+  <div *ngIf="closed" class="smalltop">
     <ion-grid>
       <ion-row wrap>
-      <p>Categorized as category{{cate}}<br>Sorted by newest</p>
+        <p col>Categorized as <a (click)='openCat()'>{{cate}}</a><br>Sorted by <a>Newest</a></p>
       </ion-row>
     </ion-grid>
   </div>
 
   <div class="bottom">
-    <ion-grid>
+    <ion-grid wrap>
       <ion-row wrap>
-        <ion-list>
+        
 
-          <ion-item col-12 *ngFor="let m of media">
-            <a>
-              <img [alt]="m.title" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'small')">
-            </a>
-            <p class="info">Information <br> about the video <br> comes here </p>
+           <ion-item *ngFor="let m of media; let i = index;" class="item-text-wrap">
+            <ion-card>
+              <video class="video">
+                <source type="video/mp4" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')">
+              </video>
+              <ion-card-content >
+                <ion-card-title>{{m.title}}</ion-card-title>
+                <div *ngIf="mediaInfo[i] !== null" class="info">
+                    <div *ngIf="loginservice.logged">user: {{mediaInfo[i].user.username}}</div>
+                    <br>
+                    <div *ngIf="media[i].description != ''">desc: {{m.description}}</div> 
+                </div>
+              </ion-card-content>
+
+          <!--<ion-item  *ngFor="let m of media">
+            <ion-card>
+              <img class="video" [alt]="m.title" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')">
+              <ion-card-content>
+                <ion-card-title>{{m.title}}</ion-card-title>
+                <p class="info">Description of the video </p>
+              </ion-card-content>-->
+
+              <ion-row no-padding>
+                <ion-col>
+                  <button ion-button clear small color="favorite" (click)="addFav(m.file_id)" icon-left>
+                    <ion-icon name='thumbs-up'></ion-icon>
+                      favs: {{mediaInfo[i].likes.length}}
+                  </button>
+                </ion-col>
+                <ion-col text-center>
+                  <button ion-button clear small color="favorite" icon-left>
+                    <ion-icon name='chatbubbles'></ion-icon>
+                   Comments
+                   </button>
+                </ion-col>
+                <ion-col text-right>
+                  <button ion-button clear small color="favorite" icon-left>
+                    <ion-icon name='more'></ion-icon>
+                    More
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-card>
           </ion-item>
 
-          <ion-item col-12>
-            <video width="100%" height="100%" controls>
-              <source src="http://video.webmfiles.org/big-buck-bunny_trailer.webm" type="video/webm"> Your browser does not support the video tag.
-            </video>
 
-          </ion-item>
 
-          <ion-item col-12>
-            <p class="info">Information <br> about the video <br> comes here </p>
-          </ion-item>
-
-          <ion-item col-12>
-            <video width="100%" height="100%" controls>
-              <source src="http://video.webmfiles.org/big-buck-bunny_trailer.webm" type="video/webm"> Your browser does not support the video tag.
-            </video>
-          </ion-item>
-
-          <ion-item col-12>
-            <video width="100%" height="100%" controls>
-              <source src="http://video.webmfiles.org/big-buck-bunny_trailer.webm" type="video/webm"> Your browser does not support the video tag.
-            </video>
-          </ion-item>
-
-        </ion-list>
+        
       </ion-row>
     </ion-grid>
   </div>

@@ -17,13 +17,26 @@ import { NavController, MenuController } from 'ionic-angular';
   providers: [Loginservice, Mediaservice],
 })
 
-export class HomePage implements OnInit {
+export class HomePage implements OnInit{
 
   private media: any = [];
- 
+   private mediaInfo: any = [];
+paska:any = null;
   navOptions = {
     animate: false
   }
+
+
+  public cate = "Popular";
+
+  public opened = false;
+  public closed = true;
+
+ private fileid: any;
+ private singlemedia: any;
+  private user: any = null;
+  private userid;
+  private likes:any = [];
 
   categories: any;
 
@@ -37,6 +50,23 @@ export class HomePage implements OnInit {
 
 
   this.categories= ['cat1','cat2','cat3','cat4','cat5','cat6'];
+
+    
+
+   this.mediaService.getNew().subscribe(
+      res => {
+        this.media = res;
+
+        for (let i = 0; i<this.media.length; i++) {
+          let info:Info = new Info;
+          this.mediaInfo.unshift(info);
+ 
+            
+            this.populateInfo(i,this.media[i].file_id);
+
+        }
+      }
+    );
   }
   
    openMenu() {
@@ -59,16 +89,109 @@ export class HomePage implements OnInit {
    this.navCtrl.push(LoginPage, null, this.navOptions);
  }
 
+populateInfo(ind:number, fileid:number) {
+      
+      this.mediaService.getMediaById(fileid)
+      .subscribe((res) =>  {
+        this.singlemedia = res;
+        this.mediaInfo[ind].fileid = fileid;
+        this.mediaInfo[ind].userid = res.user_id;
+
+        this.mediaService.getUserByUserId(res.user_id)
+        .subscribe(resp => {
+          this.mediaInfo[ind].user = resp
+          //this.paska = info.user.username;
+        });
+
+        this.mediaService.getFavouritesByMediaId(res.file_id)
+        .subscribe(respo => {
+          this.mediaInfo[ind].likes = respo
+        });
+      });
+      //return info;
+  }
+
+  private addFav(fileid:number) {
+      let favjson = JSON.stringify({"file_id":fileid});
+
+      this.mediaService.setFavourite(favjson).subscribe(res => console.log(res));
+  }
+ openCat() {
+    this.closed = false;
+    this.opened = true;
+  }
+
+  chooseCat(category) {
+    this.cate= category
+    this.opened = false;
+    this.closed = true;
+  }
+ private getUser(file_id:number) {
+   let user;
+   this.mediaService.getMediaById(file_id)
+      .subscribe((res) =>  {
+         this.media = res;
+
+
+         this.mediaService.getUserByUserId(res.user_id)
+         .subscribe(resp => {
+           user = resp;
+           return user;
+          });
+
+         
+      });
+      
+ }
+
+ populate() {
+   
+   for (let i of this.media) {
+     console.log(i);
+      // let info = new Info();
+
+      // this.mediaService.getMediaById(this.media[i].file_id)
+      // .subscribe((res) =>  {
+      //   this.media = res;
+
+
+      //   info.fileid = this.media[i].file_id;
+      //   info.userid = res.user_id;
+
+        
+
+      //   this.mediaService.getUserByUserId(res.user_id)
+      //   .subscribe(resp => {info.user = resp});
+
+      //   this.mediaService.getLikesByMediaId(res.file_id)
+      //   .subscribe(respo => info.likes = respo);
+
+      // });
+
+      // this.mediaInfo[this.media[i]] = info;
+  
+   }
+      
+  }
+
  ngOnInit() {
     // if (!this.loginService.logged)
     //   this.router.navigate(['login']);
 
-    this.mediaService.getNew().subscribe(
-      res => {
-        this.media = res;
-      }
-    );
+
+
+      
+    
+   
   }
+
+
+}
+class Info {
+     public fileid: any = 0;
+      public user: any = {username: null};
+      public userid:any = null;
+      public likes:any = [];
 }
 
 

@@ -6,6 +6,19 @@ page-home {
     a {
         font-size: small;
     }
+    .bottom {
+        padding-left:0px;
+        padding-right:0px;
+    }
+
+}
+
+@media  screen and (min-width: 700px) {
+.item-md {
+    padding-left: 0px;
+    width:400px;
+    margin: 0 auto;
+}
 }
 
 /*@media screen and (max-width: 567px) {
@@ -31,11 +44,16 @@ page-home {
         margin-left:10%;
         margin-right: 10%; 
     }
+    
 
 }
 
+a {
+    font-size: 100%;
+    color: #427c69;
+}
+
 .top {
-    display: none;
     padding-top:1%;
     background-color: #F2D383;
     border-top-style: solid;
@@ -49,17 +67,23 @@ page-home {
     border-top-style: solid;
     border-top-width: 10px;
     border-top-color: #D2B579;
+    font-size: 175%;
 }
 
 .bottom{
-    padding-left: 7%;
-    padding-right: 7%;
+    padding-left: 0%;
+    padding-right: 0%;
 
     background-color: gray;
     padding-top:1%;
     border-top-style: solid;
     border-top-width: 10px;
     border-top-color: #606060;
+}
+
+.video {
+    width: 100%;
+    height: 100%;
 }
 
 .cat1 {
@@ -117,20 +141,23 @@ page-home {
     background-color: #819cba;
 } 
 
-.info {
-    background-color: #b0b0b9;
-    margin-bottom: 40px; //does not work
-}
+ .info {
+//     background-color: #b0b0b9;
+//     margin-bottom: 40px; //does not work
+ }
 
 .grid {
     padding-left: 20px;
 }
 
 .list.list-md {
-    margin: -1px 0 7px 0;
+    margin: 0 auto;
+    width:95%;
+
 }
 
 .item-md {
+    margin: 0 auto;
     padding-left: 0px;
 }
 
@@ -145,6 +172,15 @@ page-home {
 
 .content.content-md {
     background-color: #8E8E8E;
+}
+
+.card.card-md {
+    background-color: #fff;
+    
+}
+
+.item-inner {
+    border-bottom: 0px;
 }
 
 button {
@@ -171,4 +207,3 @@ button:hover {
 video {
     
 }
-

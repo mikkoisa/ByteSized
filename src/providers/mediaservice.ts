@@ -28,7 +28,7 @@ export class Mediaservice {
       return this.http.get(this.url + '/users/' + userid + '?token=' + this.loginService.getUser().token)
       .map(res => res.json());
   }
-  getLikesByMediaId = (mediaid:number) => {
+  getFavouritesByMediaId = (mediaid:number) => {
     return this.http.get(this.url + '/favourites/file/' + mediaid)
     .map(res => res.json());
   }
@@ -48,11 +48,27 @@ export class Mediaservice {
       );
   }
 
-  upload = (fData:any) => {
-    return this.http.post(this.url + '/media?token='+this.loginService.getUser().token, fData).map(
+  setTag = (fData:any, token:string) => {
+    
+    return this.http.post(this.url + '/tags?token='+token,fData).map(
       res => res.json()
     );
   }
+
+  setFavourite = (requestdata: any) => {
+    console.log(requestdata);
+
+    return this.http.post(this.url + '/favourites/?token='+this.loginService.getUser().token, requestdata).map(
+      res => res.json()
+    );
+  }
+
+
+  // upload = (fData:any) => {
+  //   return this.http.post(this.url + '/media?token='+this.loginService.getUser().token, fData).map(
+  //     res => res.json()
+  //   );
+  // }
 
 
 }

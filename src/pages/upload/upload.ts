@@ -1,3 +1,4 @@
+import { Mediaservice } from './../../providers/mediaservice';
 import { Loginservice } from './../../providers/loginservice';
 import { HomePage } from './../home/home';
 import { LoginPage } from './../login/login';
@@ -20,7 +21,7 @@ import {NgZone} from '@angular/core';
 })
 export class UploadPage {
 
-  constructor(public loginservice: Loginservice,public navCtrl: NavController, public navParams: NavParams, private ngZone: NgZone) {
+  constructor(public mediaservice: Mediaservice,public loginservice: Loginservice,public navCtrl: NavController, public navParams: NavParams, private ngZone: NgZone) {
     if (localStorage.getItem("user") !== null){
           this.loginservice.setUser(JSON.parse(localStorage.getItem("user")));
           this.loginservice.logged = true;
@@ -47,13 +48,15 @@ export class UploadPage {
     total: number;
     progress: number;
 
+    
+
   selectVideo() {
     var options = {
 
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
             destinationType: Camera.DestinationType.DATA_URL,
 
-        mediaType: Camera.MediaType.VIDEO
+        mediaType: Camera.MediaType.ALLMEDIA
       };
       Camera.getPicture(options).then((data) => {
         this.videoUrl = data;
@@ -116,8 +119,8 @@ export class UploadPage {
         this.desc = data.desc;
         let options = {
             httpMethod: "POST",
-            mimeType: 'video/mp4',
-            fileName: 'file.mp4',
+            //mimeType: 'video/mp4',
+            //fileName: 'file.mp4',
             headers: {
               
               //token: this.loginservice.getUser().token
@@ -134,8 +137,16 @@ export class UploadPage {
         ft.upload(this.videoUrl,'http://media.mw.metropolia.fi/wbma/media?token='+this.loginservice.getUser().token, options, false)
         .then((result: any) => {
             //this.success(result);
+
+            let token:string = JSON.parse(localStorage.getItem("user")).token;
+            let data: FormData = new FormData();
+            data.append("file_id",JSON.parse(result.response).file_id);
+            data.append("tag","BS");
+            this.mediaservice.setTag(data,token).subscribe(
+              data => console.log(data)
+            );
             this.upattu = true;
-            this.navHome();
+            //this.navHome();
         }).catch((error: any) => {
             //this.failed(error);
             console.log(error);
