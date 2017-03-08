@@ -2,7 +2,7 @@ import { Loginservice } from './../providers/loginservice';
 import { Mediaservice } from './../providers/mediaservice';
 import { LoginPage } from './../pages/login/login';
 import { UploadPage } from './../pages/upload/upload';
-
+import { ThumbnailPipe } from './pipes/thumbnail.pipe';
 //import { UploadPage } from './../pages/home/home';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -18,7 +18,8 @@ import { HomePage } from '../pages/home/home';
     MyApp,
     HomePage,
     UploadPage,
-    LoginPage
+    LoginPage,
+    ThumbnailPipe,
     
   ],
   imports: [

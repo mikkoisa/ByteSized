@@ -25,13 +25,26 @@ page-home {
         margin-left:10%;
         margin-right: 10%; 
     }
+    .smalltop{
+        padding-left:5%;
+        padding-right:5%;
+        margin-left:10%;
+        margin-right: 10%; 
+    }
 
 }
 
 .top {
+    display: none;
     padding-top:1%;
+    background-color: #F2D383;
+    border-top-style: solid;
+    border-top-width: 10px;
+    border-top-color: #D2B579;
+}
 
-
+.smalltop {
+    padding-top:1%;
     background-color: #F2D383;
     border-top-style: solid;
     border-top-width: 10px;
@@ -48,7 +61,6 @@ page-home {
     border-top-width: 10px;
     border-top-color: #606060;
 }
-
 
 .cat1 {
  /*   float: left; */
@@ -127,6 +139,13 @@ page-home {
     margin: 0;
 }
 
+.toolbar.toolbar-md {
+    height: 5px;
+}
+
+.content.content-md {
+    background-color: #8E8E8E;
+}
 
 button {
    /* border-style:solid ; 

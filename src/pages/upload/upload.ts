@@ -51,7 +51,7 @@ export class UploadPage {
     var options = {
 
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            destinationType: Camera.DestinationType.FILE_URI,
+            destinationType: Camera.DestinationType.DATA_URL,
 
         mediaType: Camera.MediaType.VIDEO
       };
@@ -116,21 +116,22 @@ export class UploadPage {
         this.desc = data.desc;
         let options = {
             httpMethod: "POST",
-            mimeType: 'multipart/form-data',
+            mimeType: 'video/mp4',
+            fileName: 'file.mp4',
             headers: {
-              'Content-Type': undefined
+              
               //token: this.loginservice.getUser().token
             },
             params: {
-              file: this.videoUrl,
+              
               title: this.title,
-              desc: this.desc
+              description: this.desc
 
             }
         }; 
         ft.onProgress(this.onProgress);
 
-        ft.upload(this.videoUrl.toString(),'http://media.mw.metropolia.fi/wbma/media?token='+this.loginservice.getUser().token, options, false)
+        ft.upload(this.videoUrl,'http://media.mw.metropolia.fi/wbma/media?token='+this.loginservice.getUser().token, options, false)
         .then((result: any) => {
             //this.success(result);
             this.upattu = true;
