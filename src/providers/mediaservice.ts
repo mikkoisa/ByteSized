@@ -48,20 +48,26 @@ export class Mediaservice {
       );
   }
 
-  setTag = (fData:any, token:string) => {
+  setTag = (file_id:number, tag:string,token:any) => {
     
-    return this.http.post(this.url + '/tags?token='+token,fData).map(
+    return this.http.post(this.url + '/tags?token='+token,{"file_id":file_id, "tag":tag}).map(
       res => res.json()
     );
   }
 
-  setFavourite = (requestdata: any) => {
-    console.log(requestdata);
+  setFavourite = (file_id: number) => {
 
-    return this.http.post(this.url + '/favourites/?token='+this.loginService.getUser().token, requestdata).map(
+    return this.http.post(this.url + '/favourites/?token='+this.loginService.getUser().token, {"file_id":file_id}).map(
       res => res.json()
     );
   }
+
+  getMediaByTag = (tag:string) => {
+    return this.http.get(this.url + '/tags/'+tag+'?token='+this.loginService.getUser().token).map(
+      res => res.json()
+    );
+  }
+
 
 
   // upload = (fData:any) => {

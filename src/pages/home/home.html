@@ -55,8 +55,8 @@
 
            <ion-item *ngFor="let m of media; let i = index;" class="item-text-wrap">
             <ion-card>
-              <video class="video">
-                <source type="video/mp4" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')">
+              <video  loop class="video" [poster]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')" onclick="this.paused?this.play():this.pause();">
+                <source type="video/mp4" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + m.filename">
               </video>
               <ion-card-content >
                 <ion-card-title>{{m.title}}</ion-card-title>
@@ -77,7 +77,7 @@
 
               <ion-row no-padding>
                 <ion-col>
-                  <button ion-button clear small color="favorite" (click)="addFav(m.file_id)" icon-left>
+                  <button ion-button clear small color="favorite" (click)="addFav(m.file_id, i)" icon-left>
                     <ion-icon name='thumbs-up'></ion-icon>
                       favs: {{mediaInfo[i].likes.length}}
                   </button>

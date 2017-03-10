@@ -139,10 +139,8 @@ export class UploadPage {
             //this.success(result);
 
             let token:string = JSON.parse(localStorage.getItem("user")).token;
-            let data: FormData = new FormData();
-            data.append("file_id",JSON.parse(result.response).file_id);
-            data.append("tag","BS");
-            this.mediaservice.setTag(data,token).subscribe(
+
+            this.mediaservice.setTag(JSON.parse(result.response).file_id,"BS",token).subscribe(
               data => console.log(data)
             );
             this.upattu = true;

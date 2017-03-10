@@ -1,3 +1,4 @@
+import { Loginservice } from './../../providers/loginservice';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -13,10 +14,28 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+    constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: Loginservice) {
+
+      if (localStorage.getItem("user") !== null){
+        this.loginService.setUser(JSON.parse(localStorage.getItem("user")));
+        this.loginService.logged = true;
+      } else if (this.loginService.getUser().password !== undefined){
+        this.loginService.login();
+      }
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
   }
+
+
+  private getUserInfo() {
+    
+  }
+  private getMedia() {
+
+  }
+
+
 
 }

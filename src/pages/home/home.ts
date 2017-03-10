@@ -53,7 +53,7 @@ paska:any = null;
 
     
 
-   this.mediaService.getNew().subscribe(
+   this.mediaService.getMediaByTag(encodeURI("BS")).subscribe(
       res => {
         this.media = res;
 
@@ -111,10 +111,26 @@ populateInfo(ind:number, fileid:number) {
       //return info;
   }
 
-  private addFav(fileid:number) {
-      let favjson = JSON.stringify({"file_id":fileid});
 
-      this.mediaService.setFavourite(favjson).subscribe(res => console.log(res));
+  private addFav(fileid:number, index:number) {
+      //let favjson = JSON.stringify({"file_id":fileid});
+
+      console.log(fileid+"  index: "+index)
+
+      this.mediaService.setFavourite(fileid).subscribe(
+          data => {
+            this.mediaService.getFavouritesByMediaId(fileid).subscribe(
+              respo => {
+                this.mediaInfo[index].likes = respo
+              });
+          },
+          error => {
+            console.log("already favorited");
+          }
+
+      );
+
+
   }
  openCat() {
     this.closed = false;
@@ -141,38 +157,8 @@ populateInfo(ind:number, fileid:number) {
 
          
       });
-      
+          
  }
-
- populate() {
-   
-   for (let i of this.media) {
-     console.log(i);
-      // let info = new Info();
-
-      // this.mediaService.getMediaById(this.media[i].file_id)
-      // .subscribe((res) =>  {
-      //   this.media = res;
-
-
-      //   info.fileid = this.media[i].file_id;
-      //   info.userid = res.user_id;
-
-        
-
-      //   this.mediaService.getUserByUserId(res.user_id)
-      //   .subscribe(resp => {info.user = resp});
-
-      //   this.mediaService.getLikesByMediaId(res.file_id)
-      //   .subscribe(respo => info.likes = respo);
-
-      // });
-
-      // this.mediaInfo[this.media[i]] = info;
-  
-   }
-      
-  }
 
  ngOnInit() {
     // if (!this.loginService.logged)
