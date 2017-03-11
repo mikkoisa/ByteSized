@@ -1,0 +1,125 @@
+<!--
+  Generated template for the Search page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      Search
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar no-border-top color="androidprimary">
+      <ion-searchbar [(ngModel)]="searchQuery" (change)="search($event)" autocorrect="off"
+      [showCancelButton]="shouldShowCancel"
+      (ionCancel)="onCancel($event)">
+    </ion-searchbar>
+
+    
+  </ion-toolbar>
+
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="tab" (ionChange)="tabchange(tab)">
+      <ion-segment-button value="videos">
+        Videos
+      </ion-segment-button>
+      <ion-segment-button value="users">
+        Users
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <div class="topsearch" *ngIf="nostuff != 0">
+    <ion-grid>
+      <ion-row wrap>
+        <p col *ngIf="nostuff==1">searching for {{tempsearchQuery}}</p>
+        <p col *ngIf="nostuff==2">nothing found</p>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+
+  <div [ngSwitch]="tab">
+
+    <ion-list *ngSwitchCase="'videos'">
+
+
+           <ion-item *ngFor="let m of mediaservice.media; let i = index;" class="item-text-wrap">
+            <ion-card>
+              <video  loop class="video" [poster]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')" onclick="this.paused?this.play():this.pause();">
+                <source type="video/mp4" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + m.filename">
+              </video>
+              <ion-card-content >
+                <ion-card-title>{{m.title}}</ion-card-title>
+                <div *ngIf="mediaservice.mediaInfo[i] !== null" class="info">
+                    <div *ngIf="loginservice.logged">user: {{mediaservice.mediaInfo[i].user.username}}</div>
+                    <br>
+                    <div *ngIf="mediaservice.media[i].description != ''">desc: {{m.description}}</div> 
+                </div>
+              </ion-card-content>
+
+          <!--<ion-item  *ngFor="let m of media">
+            <ion-card>
+              <img class="video" [alt]="m.title" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')">
+              <ion-card-content>
+                <ion-card-title>{{m.title}}</ion-card-title>
+                <p class="info">Description of the video </p>
+              </ion-card-content>-->
+
+              <ion-row no-padding>
+                <ion-col>
+                  <button ion-button clear small color="favorite" (click)="mediaservice.addFav(m.file_id, i)" icon-left>
+                    <ion-icon name='thumbs-up'></ion-icon>
+                      favs: {{mediaservice.mediaInfo[i].likes.length}}
+                  </button>
+                </ion-col>
+                <ion-col text-center>
+                  <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
+                    <ion-icon name='chatbubbles'></ion-icon>
+                   Comments
+                   </button>
+                </ion-col>
+                <ion-col text-right>
+                  <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
+                    <ion-icon name='more'></ion-icon>
+                    More
+                  </button>
+                </ion-col>
+              </ion-row>
+
+              <ion-row no-padding>
+                    <div class="tag-container">
+                      <p *ngFor="let tagarray of mediaservice.mediaInfo[i].tags | slice:1">
+                        <span class="tag" (click) = 'chooseCat(tagarray.tag)'>
+                          {{ tagarray.tag }}
+                        </span>
+                      </p>
+                    </div>
+            </ion-row>
+
+
+            </ion-card>
+          </ion-item>
+
+
+
+  </ion-list>
+
+
+
+    <ion-list *ngSwitchCase="'users'">
+      <ion-item>
+
+      </ion-item>
+   
+    </ion-list>
+  </div>
+</ion-content>

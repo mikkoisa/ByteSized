@@ -34,6 +34,7 @@ export class UploadPage {
     animate: false
   }
 
+  private tags:any = [];
   cameraData: string;
   videoUrl: any;
   videoSelected: boolean;
@@ -48,7 +49,8 @@ export class UploadPage {
     total: number;
     progress: number;
 
-    
+    tagerror:boolean;
+
 
   selectVideo() {
     var options = {
@@ -111,6 +113,34 @@ export class UploadPage {
             }
         });
     }
+
+    addTag(value:any) {
+        console.log(value);
+        if (value !== '') {
+          if (this.tags.length < 10) {
+            this.tagerror = false;
+            let flag = false;
+            for (let i=0; i<this.tags.length; i++) {
+                if (this.tags[i] === value) {
+                  flag = true;
+                  break;
+                }
+            }
+            if (flag == false ) {
+              this.tags.push(value);
+            }
+          } else {
+            this.tagerror = true;
+          }
+        }
+    }
+    deleteTag(value:any) {
+      for (let i=this.tags.length-1; i>=0; i--) {
+          if (this.tags[i] === value) {
+              this.tags.splice(i, 1);
+          }
+      }
+    }
     
     upload = (data:any) : void => { 
         let ft = new Transfer();
@@ -119,8 +149,8 @@ export class UploadPage {
         this.desc = data.desc;
         let options = {
             httpMethod: "POST",
-            //mimeType: 'video/mp4',
-            //fileName: 'file.mp4',
+            mimeType: 'video/mp4',
+            fileName: 'file.mp4',
             headers: {
               
               //token: this.loginservice.getUser().token
@@ -140,9 +170,15 @@ export class UploadPage {
 
             let token:string = JSON.parse(localStorage.getItem("user")).token;
 
-            this.mediaservice.setTag(JSON.parse(result.response).file_id,"BS",token).subscribe(
+            const file_id:number=JSON.parse(result.response).file_id;
+            this.mediaservice.setTag(file_id,"BS",token).subscribe(
               data => console.log(data)
             );
+            for (let i=0; i<this.tags.length; i++) {
+              this.mediaservice.setTag(file_id,this.tags[i],token).subscribe(
+                data => console.log(data)
+              );
+            }
             this.upattu = true;
             //this.navHome();
         }).catch((error: any) => {

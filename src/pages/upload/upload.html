@@ -19,7 +19,6 @@ username: {{loginservice.getUser().username}}
 
 
     <div class="bottom">
-  <ion-grid>
 
 
 <form #uploadForm="ngForm" (ngSubmit)="upload(uploadForm.value)">
@@ -34,7 +33,7 @@ username: {{loginservice.getUser().username}}
 
   <ion-item>
   <ion-label>title:</ion-label>
-  <ion-input type="text" name="title" ngModel required></ion-input>
+  <ion-input type="text" name="title" ngModel></ion-input>
 </ion-item>
 
  <ion-item>
@@ -43,15 +42,31 @@ username: {{loginservice.getUser().username}}
  </ion-item>
 
 
+<ion-item>
+  <ion-label>tags:</ion-label>
+  <ion-input type="text" name="tag" [(ngModel)]="tagi"></ion-input>
+  
+</ion-item>
+<input type="button" icon="ion-plus" name="addtag" (click)="addTag(tagi)">
+   
+
+  <div class="tag-container">
+      <span class="tag" *ngFor="let tag of tags; let i = index">
+        {{ tag }}
+        <ion-icon name="close" (click)="deleteTag(tag)"></ion-icon>
+      </span>
+   
+    <div *ngIf="tagerror == true"><p>max 10 tags pls</p></div>
+    </div>
+ 
+
+
+
+
   <button type="submit" [disabled]="!uploadForm.valid">submit</button>
 
 </form>
-
- <ion-item>
-  
-    
-</ion-item>
-
+</div>
 videoUrl: {{videoUrl}}
   videoSelected: {{videoSelected}}
 
@@ -60,6 +75,4 @@ videoUrl: {{videoUrl}}
 
   <h4>{{progress}}%</h4>
 
-  </ion-grid>
-  </div>
 </ion-content>

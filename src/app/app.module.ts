@@ -1,3 +1,6 @@
+import { ProfilePage } from './../pages/profile/profile';
+import { VideoPage } from './../pages/video/video';
+import { SearchPage } from './../pages/search/search';
 import { Loginservice } from './../providers/loginservice';
 import { Mediaservice } from './../providers/mediaservice';
 import { LoginPage } from './../pages/login/login';
@@ -20,6 +23,9 @@ import { HomePage } from '../pages/home/home';
     UploadPage,
     LoginPage,
     ThumbnailPipe,
+    SearchPage,
+    VideoPage,
+    ProfilePage
     
   ],
   imports: [
@@ -31,7 +37,10 @@ import { HomePage } from '../pages/home/home';
     MyApp,
     HomePage,
     UploadPage,
-    LoginPage
+    LoginPage,
+    SearchPage,
+    VideoPage,
+    ProfilePage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
   {provide: Mediaservice, useClass: Mediaservice},

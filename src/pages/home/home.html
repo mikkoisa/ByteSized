@@ -9,17 +9,19 @@
         <ion-col *ngIf="loginservice.logged == true" width-20><button ion-button clear color="light">{{loginservice.getUser().username}}</button></ion-col>
       </ion-row>
     </ion-grid>
+
+
   </ion-toolbar>
 </ion-header>
 
-<ion-menu class="menu" side="right" [content]="mycontent">
-  <ion-content>
+
+
+<ion-menu  side="right" [content]="mycontent">
     <ion-list>
       <ion-item menuClose detail-none>Close Menu</ion-item>
-      <ion-item> Stuff</ion-item>
+      <ion-item> <button ion-button clear color="light" (click)='navSearch();'>Search</button></ion-item>
       <ion-item> Stuff</ion-item>
     </ion-list>
-  </ion-content>
 </ion-menu>
 
 <ion-nav #mycontent [root]="rootPage"></ion-nav>
@@ -36,7 +38,11 @@
         </ion-list>
         <!--</ion-col>-->
       </ion-row>
-      <p class="more">More categories>></p>
+      <!--<p class="more">More categories>></p>-->
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" placeholder="Search">
+      </label>
     </ion-grid>
   </div>
 
@@ -83,18 +89,36 @@
                   </button>
                 </ion-col>
                 <ion-col text-center>
-                  <button ion-button clear small color="favorite" icon-left>
+                  <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
                     <ion-icon name='chatbubbles'></ion-icon>
-                   Comments
+                   Comments: {{mediaInfo[i].comments.length}}
                    </button>
                 </ion-col>
                 <ion-col text-right>
-                  <button ion-button clear small color="favorite" icon-left>
+                  <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
                     <ion-icon name='more'></ion-icon>
                     More
                   </button>
                 </ion-col>
               </ion-row>
+
+              <ion-row no-padding>
+                    <div class="tag-container">
+                      <p *ngFor="let tagarray of mediaInfo[i].tags | slice:1">
+                        <span class="tag" (click) = 'chooseCat(tagarray.tag)'>
+                          {{ tagarray.tag }}
+                        </span>
+                      </p>
+                    </div>
+            </ion-row>
+
+            <div *ngFor="let comment of comments; let j = index;">
+                <ion-list *ngIf="commentOpen" class="comments" >
+                  <ion-item >{{comment[j].comment}}</ion-item>
+                </ion-list>
+              </div>
+
+
             </ion-card>
           </ion-item>
 
