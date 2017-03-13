@@ -34,6 +34,10 @@ export class UploadPage {
     animate: false
   }
 
+     navBack() {
+    this.navCtrl.pop();
+  }
+
   private tags:any = [];
   cameraData: string;
   videoUrl: any;

@@ -106,6 +106,7 @@ getStuffWithTag2(tag:string) {
                             if (tagres[0].tag == "BS") {
                               this.media.push(res[i]);
                               this.mediaInfo.push(this.mediaService.populateInfo(res[i].file_id, tagres));
+                              
                             }
                           }
                       });

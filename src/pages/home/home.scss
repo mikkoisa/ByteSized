@@ -62,6 +62,7 @@ a {
 }
 
 .smalltop {
+    margin:0;
     padding-top:1%;
     background-color: #F2D383;
     border-top-style: solid;
@@ -73,6 +74,7 @@ a {
 .bottom{
     padding-left: 0%;
     padding-right: 0%;
+    margin:0;
 
     background-color: gray;
     padding-top:1%;
@@ -183,27 +185,30 @@ a {
     border-bottom: 0px;
 }
 
-button {
-   /* border-style:solid ; 
-    border-color: black; */
-    background-color: #819cba;
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding-top: 15%;
-    padding-bottom: 15%;
-    
-
-    text-decoration: none;
-
-}
 
 button:hover {
     background-color: #BFA6A8;
 }
 
 video {
-    
+ 
+}
+
+    .tag-container {
+        border:none;
+        padding:0; margin:0;
+  p {
+      border:none;
+      display: inline-block;
+      padding:0;
+      margin:0;
+  }
+  span {}
+}
+
+.tag {
+    padding:0; margin:0;
+  display: block;
+  background-color: #5bc0de;
+  color: #fff;
 }

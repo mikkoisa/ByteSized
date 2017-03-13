@@ -4,7 +4,7 @@
       <ion-row>
         <ion-col width-30><button ion-button clear color="light">Bytesized</button></ion-col>
         <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
-        <ion-col offset-20 width-20><button ion-button clear color="light" (click)='navUpload();'>Upload</button></ion-col>
+        <ion-col *ngIf="loginservice.logged == true" offset-20 width-20><button ion-button clear color="light" (click)='navUpload();'>Upload</button></ion-col>
         <ion-col *ngIf="loginservice.logged == false" width-20><button ion-button clear color="light" (click)='navLogin();'>Login</button></ion-col>
         <ion-col *ngIf="loginservice.logged == true" width-20><button ion-button clear color="light">{{loginservice.getUser().username}}</button></ion-col>
       </ion-row>
@@ -26,7 +26,7 @@
 
 <ion-nav #mycontent [root]="rootPage"></ion-nav>
 
-<ion-content>
+<ion-content no-padding>
 
   <div *ngIf="opened" class="top">
     <ion-grid>
@@ -55,7 +55,6 @@
   </div>
 
   <div class="bottom">
-    <ion-grid wrap>
       <ion-row wrap>
         
 
@@ -103,7 +102,7 @@
               </ion-row>
 
               <ion-row no-padding>
-                    <div class="tag-container">
+                    <div class="tag-container" *ngIf="mediaInfo[i].tags.length>1">
                       <p *ngFor="let tagarray of mediaInfo[i].tags | slice:1">
                         <span class="tag" (click) = 'chooseCat(tagarray.tag)'>
                           {{ tagarray.tag }}
@@ -126,7 +125,6 @@
 
         
       </ion-row>
-    </ion-grid>
   </div>
 
 </ion-content>

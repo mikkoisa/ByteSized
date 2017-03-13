@@ -124,19 +124,27 @@ populateInfo(fileid:number, tags:any) {
         .subscribe(resp => {
           mediaInfo.user = resp
           //this.paska = info.user.username;
+
+
+          this.getComments(res.file_id)
+          .subscribe(respon => {
+            mediaInfo.comments = respon
+
+
+                    this.getFavouritesByMediaId(res.file_id)
+                .subscribe(respo => {
+                  mediaInfo.likes = respo
+                });
+          });
         });
 
-        this.getFavouritesByMediaId(res.file_id)
-        .subscribe(respo => {
-          mediaInfo.likes = respo
-        });
+                
+
+
 
         mediaInfo.tags = tags;
 
-        this.getComments(res.file_id)
-          .subscribe(respon => {
-            this.mediaInfo.comments = respon
-          });
+
         // this.getTagsByMedia(res.file_id)
         // .subscribe(res => {
 
@@ -147,6 +155,48 @@ populateInfo(fileid:number, tags:any) {
         // });
       });
       return mediaInfo;
+  }
+
+populateInfo2(media:any, tags:any):boolean {
+      
+      let mediaInfo:Info = new Info;
+
+        
+        mediaInfo.fileid = media.file_id;
+        mediaInfo.userid = media.user_id;
+
+        this.getUserByUserId(media.user_id)
+        .subscribe(resp => {
+          mediaInfo.user = resp
+
+          mediaInfo.tags = tags;
+          //this.paska = info.user.username;
+
+                          this.getComments(media.file_id)
+          .subscribe(respon => {
+            mediaInfo.comments = respon
+
+
+                          this.getFavouritesByMediaId(media.file_id)
+              .subscribe(respo => {
+                mediaInfo.likes = respo
+                
+                this.media.push(media);
+                this.mediaInfo.push(mediaInfo);
+                  console.log("VVAVA");
+                return true;
+              });
+          });
+        });
+
+
+
+
+        return false;
+        
+
+  
+      //return mediaInfo;
   }
 
 searchTags() {
@@ -179,7 +229,16 @@ searchTags() {
 
       );
   }
-
+getUsersUploads = (user_id: number) => {
+    return this.http.get(this.url + '/media/user/' + user_id + '?token='+this.loginService.getUser().token).map(
+      res => res.json()
+    );
+  }
+getFavourites = () => {
+  return this.http.get(this.url + '/favourites?token='+this.loginService.getUser().token).map(
+      res => res.json()
+    );
+}
 
   getStuffWithTag(tag:string) {
           this.media = [];

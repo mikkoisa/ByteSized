@@ -5,16 +5,136 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-20><button ion-button clear color="light" (click)='navBack();'>Back</button></ion-col>
+        <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
+        <ion-col *ngIf="loginService.logged == true" offset-20 width-20><button ion-button clear color="light" (click)='navUpload();'>Upload</button></ion-col>
+        <ion-col *ngIf="loginService.logged == false" width-20><button ion-button clear color="light" (click)='navLogin();'>Login</button></ion-col>
+        <ion-col *ngIf="loginService.logged == true" width-20><button ion-button clear color="light" right>{{loginService.getUser().username}}</button></ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <ion-navbar>
-    <ion-title>profile</ion-title>
-  </ion-navbar>
 
+  </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
 
+<div class = "smalltop" padding>
+  <p *ngIf="omasivu==false && userloaded==true">User #{{user.user_id}}: {{user.username}}</p>
+  <p *ngIf="omasivu==true">Profile</p>
+</div>
+
+ <div class="bottom">
+
+<ion-card >
+
+
+  <div class = "uploadss" padding>
+    <ion-row wrap *ngIf="omasivu==false">
+      <ion-col><p >Uploads</p></ion-col>
+      <ion-col right *ngIf="uploadsopen==false"><p>{{uploads.length}}</p></ion-col>
+      <ion-col right *ngIf="uploadsopen==true"><p>showing {{uploadsShowingFromTo[0]}}-{{uploadsShowingFromTo[1]}}</p></ion-col>
+      <ion-icon *ngIf="uploadsopen==false" name="ios-arrow-down" right (click)="uploadsopen=true"></ion-icon>
+      <ion-icon *ngIf="uploadsopen==true" name="ios-arrow-up" right (click)="uploadsopen=false"></ion-icon>
+    </ion-row>
+    <ion-row wrap *ngIf="omasivu==true">
+      <ion-col><p>Your uploads</p></ion-col>
+      <ion-col right *ngIf="uploadsopen==false"><p >{{uploads.length}}</p></ion-col>
+      <ion-col right *ngIf="uploadsopen==true"><p>showing {{uploadsShowingFromTo[0]}}-{{uploadsShowingFromTo[1]}}</p></ion-col>
+      <ion-icon *ngIf="uploadsopen==false" name="ios-arrow-down" right (click)="uploadsopen=true"></ion-icon>
+      <ion-icon *ngIf="uploadsopen==true" name="ios-arrow-up" right (click)="uploadsopen=false"></ion-icon>
+    </ion-row>
+  </div>
+
+  <div class = "uploads" *ngIf="uploadsopen">
+        <ion-list *ngFor="let up of uploads; let i=index">
+        
+
+          <ion-item *ngIf="i+1>=uploadsShowingFromTo[0] && i+1<= uploadsShowingFromTo[1]">
+
+            <ion-thumbnail item-left>
+              <img [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (up.filename | thumbnail: 'small')"  (click)= "navVideo(up.file_id, i)">
+            </ion-thumbnail>
+            <h2>{{up.title}}</h2>
+            <p>{{up.description}}</p>
+            <button *ngIf="omasivu==true" ion-button clear right>Edit</button>
+            <button  (click)= "navVideo(up.file_id, i)" *ngIf="omasivu==false" ion-button clear right>View</button>
+          </ion-item>
+
+
+      </ion-list>
+        <ion-row>
+           <div *ngFor="let j of array; let in = index">
+             <ion-col>
+             <ul class="page-container">
+              <li *ngIf="currentPage != in" class="page"><a (click)="pageLink(in);">{{in+1}}</a></li>
+              <li *ngIf="currentPage == in" class="curpage"><a (click)="pageLink(in);">{{in+1}}</a></li>
+            </ul>
+            </ion-col>
+          </div>
+          </ion-row>
+  </div>
+</ion-card>
+
+
+
+<ion-card >
+  <div class = "favouritess" padding>
+    <ion-row wrap *ngIf="omasivu==false">
+      <ion-col><p >Favourites</p></ion-col>
+      <ion-col right *ngIf="favouritesopen==false"><p>{{favourites.length}}</p></ion-col>
+      <ion-col right *ngIf="favouritesopen==true"><p>showing {{favouritesShowingFromTo[0]}}-{{favouritesShowingFromTo[1]}}</p></ion-col>
+      <ion-icon *ngIf="favouritesopen==false" name="ios-arrow-down" right (click)="favouritesopen=true"></ion-icon>
+      <ion-icon *ngIf="favouritesopen==true" name="ios-arrow-up" right (click)="favouritesopen=false"></ion-icon>
+    </ion-row>
+    <ion-row wrap *ngIf="omasivu==true">
+      <ion-col><p>Your favourites</p></ion-col>
+      <ion-col right *ngIf="favouritesopen==false"><p >{{favourites.length}}</p></ion-col>
+      <ion-col right *ngIf="favouritesopen==true"><p>showing {{favouritesShowingFromTo[0]}}-{{favouritesShowingFromTo[1]}}</p></ion-col>
+      <ion-icon *ngIf="favouritesopen==false" name="ios-arrow-down" right (click)="favouritesopen=true"></ion-icon>
+      <ion-icon *ngIf="favouritesopen==true" name="ios-arrow-up" right (click)="favouritesopen=false"></ion-icon>
+    </ion-row>
+  </div>
+
+  <div class = "favourites" *ngIf="favouritesopen">
+        <ion-list *ngFor="let f of favourites; let i=index">
+        
+
+          <ion-item *ngIf="i+1>=favouritesShowingFromTo[0] && i+1<= favouritesShowingFromTo[1]">
+
+            <ion-thumbnail item-left>
+              <img [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (f.filename | thumbnail: 'small')"  (click)= "navVideo(f.file_id, i)">
+            </ion-thumbnail>
+            <h2>{{f.title}}</h2>
+            <p>{{f.description}}</p>
+            <button  (click)= "navVideo(f.file_id, i)" ion-button clear right>View</button>
+          </ion-item>
+
+
+      </ion-list>
+        <ion-row>
+           <div *ngFor="let j of array2; let in = index">
+             <ion-col>
+             <ul class="page-container">
+              <li *ngIf="currentPage2 != in" class="page"><a (click)="pageLinkFavourites(in);">{{in+1}}</a></li>
+              <li *ngIf="currentPage2 == in" class="curpage"><a (click)="pageLinkFavourites(in);">{{in+1}}</a></li>
+            </ul>
+            </ion-col>
+          </div>
+          </ion-row>
+  </div>
+</ion-card>
+
+<ion-card>
+   <div *ngIf="omasivu == true" class = "info" padding>
+    <button>Edit your credentials</button>
+  </div>
+</ion-card>
+</div>
 
 </ion-content>

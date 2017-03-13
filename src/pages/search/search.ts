@@ -31,12 +31,14 @@ export class SearchPage {
   }
   private cate = "";
   private nostuff:number;
-  //private media = [];
-  //private mediaInfo = [];
+  private media = [];
+  private mediaInfo = [];
 private searchQuery:string = "";
 private tempsearchQuery:string = "";
 private tab:string = "videos";
 private tags = [];
+
+private loaded:boolean = false;
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
   }
@@ -68,6 +70,7 @@ search(asd) {
   }
 
 searchVideos() {
+  this.loaded = false;
   this.mediaservice.searchByTitle(this.searchQuery).subscribe(
               res => {
                 if (res.length <= 0) {
@@ -84,8 +87,9 @@ searchVideos() {
                             if (tagres[0].tag == "BS") {
                               this.tempsearchQuery = this.searchQuery;
                               this.nostuff = 1;
-                              this.mediaservice.media.push(res[i]);
-                              this.mediaservice.mediaInfo.push(this.mediaservice.populateInfo(res[i].file_id, tagres));
+                            //this.mediaservice.media.push(res[i]);
+                             // this.mediaservice.mediaInfo.push(this.mediaservice.populateInfo(res[i].file_id, tagres));
+                              this.populateInfo2(res, tagres);
                             }
                           }
                     });
@@ -102,6 +106,61 @@ searchVideos() {
 }
 
 
+populateInfo2(media:any, tags:any) {
+      
+      let mediaInfo:Info = new Info;
+
+        
+        mediaInfo.fileid = media.file_id;
+        mediaInfo.userid = media.user_id;
+
+        this.mediaservice.getUserByUserId(media.user_id)
+        .subscribe(resp => {
+          mediaInfo.user = resp
+         
+          mediaInfo.tags = tags;
+
+
+          console.log("EKAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+          //this.paska = info.user.username;
+
+        });
+
+         this.mediaservice.getComments(media.file_id)
+          .subscribe(respon => {
+            mediaInfo.comments = respon
+             console.log("TOKA");
+
+          });
+
+           this.mediaservice.getFavouritesByMediaId(media.file_id)
+              .subscribe(respo => {
+                mediaInfo.likes = respo
+                
+                this.media.push(media);
+                this.mediaInfo.push(mediaInfo);
+  console.log("KOLMAS");
+
+              });
+}
+    private addFav(fileid:number, index:number) {
+      //let favjson = JSON.stringify({"file_id":fileid});
+
+      console.log(fileid+"  index: "+index)
+
+      this.mediaservice.setFavourite(fileid).subscribe(
+          data => {
+            this.mediaservice.getFavouritesByMediaId(fileid).subscribe(
+              respo => {
+                this.mediaInfo[index].likes = respo
+              });
+          },
+          error => {
+            console.log("already favorited");
+          }
+
+      );
+  }
 
 searchUsers() {
   this.mediaservice.searchUsers().subscribe(
@@ -145,4 +204,12 @@ getItems(asd) {
   console.log(asd);
 }
 
+}
+class Info {
+     public fileid: any = 0;
+      public user: any = {username: null};
+      public userid:any = null;
+      public likes:any = [];
+      public tags:any = [];
+      public comments:any = [];
 }

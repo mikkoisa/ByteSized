@@ -45,24 +45,24 @@
     </ion-grid>
   </div>
 
-
+<div class="bottom" *ngIf="loaded == true">
 
   <div [ngSwitch]="tab">
 
     <ion-list *ngSwitchCase="'videos'">
 
 
-           <ion-item *ngFor="let m of mediaservice.media; let i = index;" class="item-text-wrap">
+           <ion-item *ngFor="let m of media; let i = index;" class="item-text-wrap">
             <ion-card>
               <video  loop class="video" [poster]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')" onclick="this.paused?this.play():this.pause();">
                 <source type="video/mp4" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + m.filename">
               </video>
               <ion-card-content >
                 <ion-card-title>{{m.title}}</ion-card-title>
-                <div *ngIf="mediaservice.mediaInfo[i] !== null" class="info">
-                    <div *ngIf="loginservice.logged">user: {{mediaservice.mediaInfo[i].user.username}}</div>
+                <div *ngIf="mediaInfo[i] !== null" class="info">
+                    <div *ngIf="loginservice.logged">user: {{mediaInfo[i].user.username}}</div>
                     <br>
-                    <div *ngIf="mediaservice.media[i].description != ''">desc: {{m.description}}</div> 
+                    <div *ngIf="media[i].description != ''">desc: {{m.description}}</div> 
                 </div>
               </ion-card-content>
 
@@ -76,15 +76,15 @@
 
               <ion-row no-padding>
                 <ion-col>
-                  <button ion-button clear small color="favorite" (click)="mediaservice.addFav(m.file_id, i)" icon-left>
+                  <button ion-button clear small color="favorite" (click)="addFav(m.file_id, i)" icon-left>
                     <ion-icon name='thumbs-up'></ion-icon>
-                      favs: {{mediaservice.mediaInfo[i].likes.length}}
+                      favs: {{mediaInfo[i].likes.length}}
                   </button>
                 </ion-col>
                 <ion-col text-center>
                   <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
                     <ion-icon name='chatbubbles'></ion-icon>
-                   Comments
+                   Comments: {{mediaInfo[i].comments.length}}
                    </button>
                 </ion-col>
                 <ion-col text-right>
@@ -97,7 +97,7 @@
 
               <ion-row no-padding>
                     <div class="tag-container">
-                      <p *ngFor="let tagarray of mediaservice.mediaInfo[i].tags | slice:1">
+                      <p *ngFor="let tagarray of mediaInfo[i].tags | slice:1">
                         <span class="tag" (click) = 'chooseCat(tagarray.tag)'>
                           {{ tagarray.tag }}
                         </span>
@@ -121,5 +121,6 @@
       </ion-item>
    
     </ion-list>
+  </div>
   </div>
 </ion-content>

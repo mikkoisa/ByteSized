@@ -1,18 +1,4 @@
-page-video {
 
-}
-
-@media screen and (max-width: 425px) {
-    a {
-        font-size: small;
-    }
-    .bottom {
-        padding-left:0px;
-        padding-right:0px;
-    }
-
-
-}
 
 @media  screen and (min-width: 700px) {
 .kortti {
@@ -29,39 +15,7 @@ page-video {
     }
 }*/
 
-@media screen and (min-width: 641px) {
-    .top {
-        padding-left:5%;
-        padding-right:5%;
-        margin-left:10%;
-        margin-right: 10%; 
-    }
-    .bottom {
-        margin-left:10%;
-        margin-right: 10%; 
-    }
-    .smalltop{
-        padding-left:5%;
-        padding-right:5%;
-        margin-left:10%;
-        margin-right: 10%; 
-    }
 
-    .kortti {
-        margin-left:15%;
-        margin-right:15%;
-        text-align: center;
-    }
-
-    .list.list-md { //ei toimi
-        border-style: solid;
-        border-top-width: 10px;
-        border-bottom-width: 10px;
-        border-color:  #606060;
-    }
-    
-
-}
 
 a {
     font-size: 100%;
@@ -74,26 +28,6 @@ a {
     border-top-style: solid;
     border-top-width: 10px;
     border-top-color: #D2B579;
-}
-
-.smalltop {
-    padding-top:1%;
-    background-color: #F2D383;
-    border-top-style: solid;
-    border-top-width: 10px;
-    border-top-color: #D2B579;
-    font-size: 175%;
-}
-
-.bottom{
-    padding-left: 0%;
-    padding-right: 0%;
-
-    background-color: gray;
-    padding-top:1%;
-    border-top-style: solid;
-    border-top-width: 10px;
-    border-top-color: #606060;
 }
 
 .video {
@@ -173,4 +107,16 @@ button:hover {
 
 video {
     
+}
+.commen {
+    margin-bottom:10;
+}
+.ylarivi {
+    color:#606060;
+    font-size: small;
+    padding-left: -10;
+}
+
+.alarivi {
+   
 }

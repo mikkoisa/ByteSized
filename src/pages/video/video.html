@@ -8,27 +8,35 @@
     <ion-grid>
       <ion-row>
         <ion-col width-20><button ion-button clear color="light" (click)='navBack();'>Back</button></ion-col>
+        <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
+        <ion-col *ngIf="loginservice.logged == true" offset-20 width-20><button ion-button clear color="light" (click)='navUpload();'>Upload</button></ion-col>
+        <ion-col *ngIf="loginservice.logged == false" width-20><button ion-button clear color="light" (click)='navLogin();'>Login</button></ion-col>
+        <ion-col *ngIf="loginservice.logged == true" width-20><button ion-button clear color="light" right>{{loginservice.getUser().username}}</button></ion-col>
       </ion-row>
     </ion-grid>
+
+
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
+
+<ion-content no-padding>
 
   <div class="smalltop">
-    <ion-grid>
-      <ion-row wrap>
+    <ion-row padding>
+  
         <p>{{media.title}}<br>
           <a (click)="openUser(user.user_id)">{{user.username}}</a>
         </p>
-      </ion-row>
-    </ion-grid>
+ 
+    </ion-row>
   </div>
 
+<div class="bottom">
   <div *ngIf="data">
-  <ion-card class= "kortti">
-    <video loop class="video" onclick="this.paused?this.play():this.pause();">
+  <ion-card >
+    <video loop class="video" [poster]="'http://media.mw.metropolia.fi/wbma/uploads/' + (media.filename | thumbnail: 'medium')" onclick="this.paused?this.play():this.pause();">
       <source type="video/mp4" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + media.filename">
       <!--<img [src]= "'http://media.mw.metropolia.fi/wbma/uploads/80d2344ac4910fa59994e3b7f2256ab2.jpg'">-->
     </video>
@@ -36,15 +44,25 @@
       <div class="info">
         <br>
         <div> desc: {{media.description}}</div>
+        <br>
         <div>
           <p>Comments</p>
         <div *ngFor="let comment of comments; let j = index;">
           <ion-list>
-            <ion-item class="commen" >{{comment.username}}: {{comment.comment}}</ion-item>
+
+            <ion-item class="commen" padding-bottom>
+              <ion-row class="ylarivi">
+                <ion-col>
+                {{comment.username}}</ion-col> <ion-col right>{{comment.time_added}}</ion-col>
+              </ion-row>
+              <ion-row class="alarivi" >
+                &nbsp;{{comment.comment}}
+              </ion-row>
+            </ion-item>
           </ion-list>
         </div>
 
-          <form #commentForm="ngForm" (ngSubmit)="comment(media.file_id, commentForm.value)">
+          <form #commentForm="ngForm" (ngSubmit)="comment(media.file_id, commentForm.value); this.commentForm.reset()">
             <ion-item>
               <ion-label>Comment:</ion-label>
               <ion-input type="text" name="comment" ngModel required></ion-input>
@@ -57,6 +75,6 @@
     </ion-card-content>
   </ion-card>
   </div>
-
+</div>
 
 </ion-content>
