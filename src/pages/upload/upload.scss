@@ -1,11 +1,15 @@
 page-upload {
-
+.filebutton {
+    border-style:solid ; 
+    border-color: black;
+    color: #f4f4f4;
+    background-color:  #606060;
+    font-size: 150%
+    border solid black;
+    padding: 20px 6px;
 }
-button {
-    height:10px;
-}
-.bottom {
-    padding-bottom: 500x;
+.scroll-content{
+  background-color: #f4f4f4;
 }
 .tag-container {
   border: 1px solid #ccc;
@@ -20,4 +24,5 @@ button {
   color: #fff;
   margin: 5px 5px;
   padding: 2px 5px;
+}
 }

@@ -235,8 +235,11 @@ getUsersUploads = (user_id: number) => {
     );
   }
 getFavourites = () => {
+  
   return this.http.get(this.url + '/favourites?token='+this.loginService.getUser().token).map(
-      res => res.json()
+      res =>
+        res.json()
+  
     );
 }
 

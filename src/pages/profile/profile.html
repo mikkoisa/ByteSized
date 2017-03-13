@@ -8,11 +8,11 @@
   <ion-toolbar>
     <ion-grid>
       <ion-row>
-        <ion-col width-20><button ion-button clear color="light" (click)='navBack();'>Back</button></ion-col>
+        <ion-col ion-button clear color="light" (click)='navBack();'>Back</ion-col>
         <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
-        <ion-col *ngIf="loginService.logged == true" offset-20 width-20><button ion-button clear color="light" (click)='navUpload();'>Upload</button></ion-col>
-        <ion-col *ngIf="loginService.logged == false" width-20><button ion-button clear color="light" (click)='navLogin();'>Login</button></ion-col>
-        <ion-col *ngIf="loginService.logged == true" width-20><button ion-button clear color="light" right>{{loginService.getUser().username}}</button></ion-col>
+        <ion-col *ngIf="loginService.logged == true" ion-button clear color="light" (click)='navUpload();'>Upload</ion-col>
+        <ion-col *ngIf="loginService.logged == false" ion-button clear color="light" (click)='navLogin();'>Login</ion-col>
+        <ion-col *ngIf="loginService.logged == true" ion-button clear color="light" (click)='openUser(loginservice.getUser().user_id);'>Hello, {{loginService.getUser().username}}</ion-col>
       </ion-row>
     </ion-grid>
 

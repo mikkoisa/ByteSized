@@ -17,7 +17,7 @@ import { LoadingController } from 'ionic-angular';
 @Component({
   selector: 'page-video',
   templateUrl: 'video.html',
-  providers: [Mediaservice, Loginservice, HomePage, CommonModule],
+  providers: [Mediaservice, Loginservice, CommonModule],
 })
 export class VideoPage {
   public user: any = [];
@@ -32,11 +32,12 @@ export class VideoPage {
   }
 
   constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, private mediaService: Mediaservice, private loginservice: Loginservice, public http: Http) {
-    // if (localStorage.getItem("user") !== null) {
-    //   this.loginservice.setUser(JSON.parse(localStorage.getItem("user")));
-    //   this.loginservice.logged = true;
-    // } else if (this.loginservice.getUser().password !== undefined) {
-    //   this.loginservice.login();
+    if (localStorage.getItem("user") !== null) {
+      this.loginservice.setUser(JSON.parse(localStorage.getItem("user")));
+      this.loginservice.logged = true;
+     } else if (this.loginservice.getUser().password !== undefined) {
+     this.loginservice.login();
+    }
     this.loading();
     this.param = navParams.get("firstPassed")
 
@@ -124,7 +125,7 @@ export class VideoPage {
 
   openUser(user_id: number) {
       this.navCtrl.push(ProfilePage, {firstPassed: user_id}, this.navOptions);
-
+      console.log("asdWasp");
     }
 
 

@@ -14,9 +14,22 @@ import { NavController, NavParams } from 'ionic-angular';
 
 export class LoginPage {
 
+  private segmentMode = "Login";
+
   navOptions = {
     animate: false
   }
+  loginUser = {
+    username:'',
+    password:'',
+  };
+
+  registerUser = {
+    username:'',
+    email:'',
+    password:'',
+    full_name:'',
+  };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loginService: Loginservice) {
 
@@ -28,12 +41,8 @@ export class LoginPage {
     }
   }
 
-  navUpload() {
-   this.navCtrl.push(UploadPage, null, this.navOptions);
- }
-
   navHome() {
-    this.navCtrl.push(HomePage, null, this.navOptions)
+    this.navCtrl.setRoot(HomePage)
   }
 
   ionViewDidLoad() {
@@ -41,15 +50,16 @@ export class LoginPage {
   }
 
 
-  register = (value: any) => {
-    console.log(value);
-    this.loginService.setUser(value);
+  register = () => {
+    console.log(this.registerUser);
+    this.loginService.setUser(this.registerUser);
     this.loginService.register();
   }
 
-  login(value) {
-      console.log(value);
-      this.loginService.setUser(value);
+  login() {
+      console.log(this.loginUser);
+      this.loginService.setUser(this.loginUser);
       this.loginService.login();
+      
     }
 }

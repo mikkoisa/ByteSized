@@ -1,17 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-navbar>
     <ion-grid>
       <ion-row>
-        <ion-col width-30><button ion-button clear color="light">Bytesized</button></ion-col>
-        <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
-        <ion-col *ngIf="loginservice.logged == true" offset-20 width-20><button ion-button clear color="light" (click)='navUpload();'>Upload</button></ion-col>
-        <ion-col *ngIf="loginservice.logged == false" width-20><button ion-button clear color="light" (click)='navLogin();'>Login</button></ion-col>
-        <ion-col *ngIf="loginservice.logged == true" width-20><button ion-button clear color="light">{{loginservice.getUser().username}}</button></ion-col>
+        <ion-col ion-button clear color="light" (click)='navHome();'>ByteSize</ion-col>
+        <!--<button ion-button menuToggle><ion-icon name="menu"></button>-->
+        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navUpload();'>Upload</ion-col>
+        <ion-col *ngIf="loginservice.logged == false" ion-button clear color="light" (click)='navLogin();'>Login</ion-col>
+        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='openUser(loginservice.getUser().user_id);'>Hello, {{loginservice.getUser().username}}</ion-col>
+        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navLogout();'>Logout</ion-col>
       </ion-row>
     </ion-grid>
-
-
-  </ion-toolbar>
+  </ion-navbar>
 </ion-header>
 
 

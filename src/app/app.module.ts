@@ -8,7 +8,7 @@ import { UploadPage } from './../pages/upload/upload';
 import { ThumbnailPipe } from './pipes/thumbnail.pipe';
 //import { UploadPage } from './../pages/home/home';
 import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, NavController } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
@@ -45,6 +45,7 @@ import { HomePage } from '../pages/home/home';
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
   {provide: Mediaservice, useClass: Mediaservice},
   {provide: Loginservice, useClass: Loginservice}
+  
   ]
 })
 export class AppModule {}

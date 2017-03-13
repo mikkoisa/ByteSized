@@ -1,3 +1,7 @@
+import { LoginPage } from './../login/login';
+import { SearchPage } from './../search/search';
+import { UploadPage } from './../upload/upload';
+import { HomePage } from './../home/home';
 import { VideoPage } from './../video/video';
 import { Mediaservice } from './../../providers/mediaservice';
 import { Loginservice } from './../../providers/loginservice';
@@ -63,6 +67,18 @@ export class ProfilePage {
    navBack() {
     this.navCtrl.pop();
   }
+  navHome() {
+   this.navCtrl.setRoot(HomePage);
+ }
+ navUpload() {
+   this.navCtrl.setRoot(UploadPage);
+ }
+  navSearch() {
+   this.navCtrl.setRoot(SearchPage);
+ }
+  navLogin() {
+   this.navCtrl.setRoot(LoginPage);
+ }
  loading() {
     let loader = this.loadingCtrl.create({
       content: "",
@@ -143,16 +159,25 @@ export class ProfilePage {
   }
 
   getUsersFavourites(userid:number) {
+console.log(userid);
     this.favloaded = false;
     this.mediaService.getFavourites().subscribe(
       res => {
+
+          console.log(res);
+
+
         for (let i=0; i<res.length; i++) {
+
+          console.log("l: "+res.length+"   "+i);
           if (res[i].user_id == this.param) {
             //this.favourites.push ( res[i]);
             //console.log(res[i]);
+            
             this.mediaService.getMediaById(res[i].file_id).subscribe(
               resp => {
                 this.favourites.push(resp);
+                
                 if (i==res.length-1) {
                   
                   this.favourites.reverse();
@@ -202,6 +227,10 @@ export class ProfilePage {
       this.currentPage2 = index;
     }
   }
+  openUser(user_id: number) {
+      this.navCtrl.push(ProfilePage, {firstPassed: user_id}, this.navOptions);
+      console.log("asdWasp");
+    }
 
 
   private getMedia() {

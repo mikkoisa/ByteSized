@@ -1,3 +1,7 @@
+import { ProfilePage } from './../profile/profile';
+import { LoginPage } from './../login/login';
+import { UploadPage } from './../upload/upload';
+import { HomePage } from './../home/home';
 import { VideoPage } from './../video/video';
 import { Loginservice } from './../../providers/loginservice';
 import { Mediaservice } from './../../providers/mediaservice';
@@ -63,6 +67,25 @@ search(asd) {
   }
 }
 
+navBack() {
+    this.navCtrl.pop();
+}
+navHome() {
+   this.navCtrl.setRoot(HomePage);
+ }
+ navUpload() {
+   this.navCtrl.setRoot(UploadPage);
+ }
+  navSearch() {
+   this.navCtrl.setRoot(SearchPage);
+ }
+  navLogin() {
+   this.navCtrl.setRoot(LoginPage);
+ }
+ openUser(user_id: number) {
+      this.navCtrl.push(ProfilePage, {firstPassed: user_id}, this.navOptions);
+      console.log("asdWasp");
+    }
 
   navVideo(id: number) {
     console.log(id);

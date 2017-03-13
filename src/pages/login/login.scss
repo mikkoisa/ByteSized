@@ -1,10 +1,43 @@
 page-login {
 
+.seg.segment-button {
+   /* border-style:solid ; 
+    border-color: black; */
+    background-color: #F2D383;
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
+h1{
+    font-size: 200%;
+    color: #427c69;
+}
+.list.list-md {
+    width:100%;
+
+}
+.input-wrapper{
+    color: black;
+    font-size: 150%;
 }
 
-
-
-.loginbox, .registerbox {
-    height: 60%;
-    background-color: snow;
+.confirm{
+    color: #f4f4f4;
+    background-color: #606060;
+    font-size: 175%;
+    padding: 20px 6px;
+}
+.body{
+    color: #427c69;
+    font-size:150%
+}
+button:hover {
+    background-color: #BFA6A8;
+}
+.scroll-content{
+    background-color: #f4f4f4;
+}
 }

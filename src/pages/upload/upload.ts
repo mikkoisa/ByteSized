@@ -1,3 +1,4 @@
+import { ProfilePage } from './../profile/profile';
 import { Mediaservice } from './../../providers/mediaservice';
 import { Loginservice } from './../../providers/loginservice';
 import { HomePage } from './../home/home';
@@ -32,10 +33,6 @@ export class UploadPage {
   
   navOptions = {
     animate: false
-  }
-
-     navBack() {
-    this.navCtrl.pop();
   }
 
   private tags:any = [];
@@ -75,12 +72,9 @@ export class UploadPage {
 
   }
 
-  navLogin() {
-    this.navCtrl.push(LoginPage, null, this.navOptions);
-  }
 
   navHome() {
-    this.navCtrl.push(HomePage, null, this.navOptions)
+    this.navCtrl.setRoot(HomePage);
   }
 
   ionViewDidLoad() {
@@ -189,6 +183,11 @@ export class UploadPage {
             //this.failed(error);
             console.log(error);
         }); 
+    }
+
+    openUser(user_id: number) {
+      this.navCtrl.push(ProfilePage, {firstPassed: user_id}, this.navOptions);
+      console.log("asdWasp");
     }
 
 }

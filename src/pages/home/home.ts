@@ -1,3 +1,4 @@
+import { ProfilePage } from './../profile/profile';
 import { VideoPage } from './../video/video';
 import { SearchPage } from './../search/search';
 import { Mediaservice } from './../../providers/mediaservice';
@@ -66,6 +67,11 @@ private uniqtags = new Set();
 
   }
 
+
+navLogout() {
+  this.loginservice.logout();
+  this.navLogin();
+}
   navVideo(id: number) {
     console.log(id);
     this.navCtrl.push(VideoPage, {firstPassed: id},  this.navOptions);
@@ -128,15 +134,22 @@ getStuffWithTag2(tag:string) {
    this.menuCtrl.toggle();
  }
 
+navHome() {
+   this.navCtrl.setRoot(HomePage);
+ }
  navUpload() {
-   this.navCtrl.push(UploadPage, null, this.navOptions);
+   this.navCtrl.setRoot(UploadPage);
  }
   navSearch() {
-   this.navCtrl.push(SearchPage, null, this.navOptions);
+   this.navCtrl.setRoot(SearchPage);
  }
   navLogin() {
-   this.navCtrl.push(LoginPage, null, this.navOptions);
+   this.navCtrl.setRoot(LoginPage);
  }
+ openUser(user_id: number) {
+      this.navCtrl.push(ProfilePage, {firstPassed: user_id}, this.navOptions);
+      console.log("asdWasp");
+    }
 
   private addFav(fileid:number, index:number) {
       //let favjson = JSON.stringify({"file_id":fileid});

@@ -1,3 +1,5 @@
+import { HomePage } from './../pages/home/home';
+import { NavController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -17,7 +19,7 @@ export class Loginservice {
 
   private user: any = {};
 
-  constructor(public http: Http) {
+  constructor( public http: Http) {
     console.log('Hello Loginservice Provider');
   }
   setUser = (user) => {
@@ -57,6 +59,26 @@ export class Loginservice {
         resp => {
           this.user.user_id = resp.json().user_id;
           console.log(this.user);
+          //this.router.navigate(['login']);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  };
+
+   logout = () => {
+    // this.http.post(this.url, this.user,.....)
+    this.user.token = '';
+    window.localStorage.clear();
+    return this.http.put(this.url+'/user',this.user)
+      .subscribe(
+        resp => {
+          this.logged = false;
+          //this.navCtrl.setRoot(HomePage);
+          console.log(this.user);
+          // refresh doesn't work :(
+          //this.navCtrl.setRoot(HomePage);
           //this.router.navigate(['login']);
         },
         error => {

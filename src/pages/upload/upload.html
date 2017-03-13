@@ -1,51 +1,52 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-grid>
-      <ion-row>
-        <ion-col width-20><button ion-button clear color="light" (click)='navBack();'>Back</button></ion-col>
-        <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
-        <ion-col *ngIf="loginService.logged == true" width-20><button ion-button clear color="light" right>{{loginService.getUser().username}}</button></ion-col>
-      </ion-row>
-    </ion-grid>
-
-
-  </ion-toolbar>
+<ion-toolbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col ion-button clear color="light" (click)='navHome();' >ByteSize</ion-col>
+      <!--<ion-col offset-20 width-20><button ion-button menuToggle><ion-icon name="menu"></ion-icon></button></ion-col>-->
+      <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='openUser(loginservice.getUser().user_id);'>Hello, {{loginservice.getUser().username}}</ion-col>
+      <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='loginservice.logout()'>Logout</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>
 </ion-header>
 
-
-<ion-content padding>
-
-logged: {{loginservice.logged}}
-username: {{loginservice.getUser().username}}
-
-
-
-    <div class="bottom">
+<ion-content color="light" padding>
 
 
 <form #uploadForm="ngForm" (ngSubmit)="upload(uploadForm.value)">
 
 
 
-  <ion-label>file:</ion-label>
+  <ion-label ion-text color="favorite">File:</ion-label>
   <ion-icon name="film"></ion-icon>
-  <button type="file" (click)="selectVideo()">select video</button>
+  <ion-item>
+  <button class="filebutton" type="file" (click)="selectVideo()" block>Select video...</button>
   <!--<ion-input type="file" placeholder="upload file..." name="file" ngModel />-->
-
+  </ion-item>
 
   <ion-item>
-  <ion-label>title:</ion-label>
+  <ion-label ion-text color="favorite">Title:</ion-label>
   <ion-input type="text" name="title" ngModel></ion-input>
-</ion-item>
+  </ion-item>
 
  <ion-item>
-  <ion-label>description:</ion-label>
+  <ion-label ion-text color="favorite">Description:</ion-label>
   <ion-input type="text" name="desc" ngModel></ion-input>
  </ion-item>
 
-
+<!-- Keeps crashing, but it looks better :-)
 <ion-item>
-  <ion-label>tags:</ion-label>
+<ion-label ion-text color="favorite">Tags:</ion-label>
+<ion-input type="text" name="tag" [(ngModel)]="tagi"></ion-input>       
+</ion-item>
+<ion-item>
+   <button ion-button icon-only item-right (click)="addTag(tagi)"> 
+     <ion-icon name="addtag"></ion-icon>
+    </button>
+</ion-item>-->
+<ion-item>
+  <ion-label color="favorite">Tags:</ion-label>
   <ion-input type="text" name="tag" [(ngModel)]="tagi"></ion-input>
   
 </ion-item>
@@ -62,17 +63,11 @@ username: {{loginservice.getUser().username}}
     </div>
  
 
-
-
-
-  <button type="submit" [disabled]="!uploadForm.valid">submit</button>
-
+  <ion-item>
+  <button class="filebutton" type="submit" [disabled]="!uploadForm.valid" block>Upload!</button>
+  </ion-item>
 </form>
-</div>
-videoUrl: {{videoUrl}}
-  videoSelected: {{videoSelected}}
 
-  <br>
   upattu: {{upattu}}
 
   <h4>{{progress}}%</h4>
