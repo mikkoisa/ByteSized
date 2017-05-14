@@ -1,4 +1,22 @@
+page-video{
+    .card-md p{
+    font-size: 135%; 
+    margin-left: 2%;
+    }
 
+    .list.list-md {
+     border-bottom-style: solid;
+     border-bottom-width: 1px;
+     border-color:  #606060;
+    }
+
+    a {
+    font-size: 100%;
+    color: #427c69;
+}
+
+    
+}
 
 @media  screen and (min-width: 700px) {
 .kortti {

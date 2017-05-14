@@ -3,11 +3,11 @@
     <ion-grid>
       <ion-row>
         <ion-col ion-button clear color="light" (click)='navHome();'>ByteSize</ion-col>
-        <!--<button ion-button menuToggle><ion-icon name="menu"></button>-->
-        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navUpload();'>Upload</ion-col>
+        <ion-col ion-button menuToggle><ion-icon name="menu"></ion-icon></ion-col>
+        <!--<ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navUpload();'>Upload</ion-col>
         <ion-col *ngIf="loginservice.logged == false" ion-button clear color="light" (click)='navLogin();'>Login</ion-col>
         <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='openUser(loginservice.getUser().user_id);'>Hello, {{loginservice.getUser().username}}</ion-col>
-        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navLogout();'>Logout</ion-col>
+        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navLogout();'>Logout</ion-col>-->
       </ion-row>
     </ion-grid>
   </ion-navbar>
@@ -16,11 +16,16 @@
 
 
 <ion-menu  side="right" [content]="mycontent">
-    <ion-list>
-      <ion-item menuClose detail-none>Close Menu</ion-item>
-      <ion-item> <button ion-button clear color="light" (click)='navSearch();'>Search</button></ion-item>
-      <ion-item> Stuff</ion-item>
-    </ion-list>
+  <ion-list>
+    <ion-item><button ion-button clear color="dark"> Menu</button></ion-item>
+    <ion-item><button *ngIf="loginservice.logged == false" ion-button clear color="favorite" menuClose (click)='navLogin();'>Login &nbsp;<ion-icon name="log-in"></ion-icon></button><button
+        *ngIf="loginservice.logged == true" ion-button clear color="favorite" (click)='navLogout();'>Logout &nbsp; <ion-icon name="log-out"></ion-icon></button></ion-item>
+    <ion-item><button ion-button clear color="favorite" menuClose (click)='navSearch();'>Search &nbsp;<ion-icon name="search"></ion-icon></button></ion-item>
+    <ion-item><button *ngIf="loginservice.logged == true" ion-button clear color="favorite" menuClose (click)='navUpload();'>Upload &nbsp;<ion-icon name="film"></ion-icon></button></ion-item>
+    <ion-item><button *ngIf="loginservice.logged == true" ion-button clear color="favorite" menuClose (click)='openUser(loginservice.getUser().user_id);'>My profile &nbsp; <ion-icon name="contact"></ion-icon></button></ion-item>
+
+    <ion-item><button ion-button clear color="dark" menuClose>Close Menu</button></ion-item>
+  </ion-list>
 </ion-menu>
 
 <ion-nav #mycontent [root]="rootPage"></ion-nav>
@@ -33,7 +38,7 @@
       <ion-row wrap>
         <!--<ion-col col-6 col-sm-4 *ngFor="let category of categories">-->
         <ion-list no-lines col-6 col-sm-4 *ngFor="let category of categories">
-          <ion-item><button ion-button clear class={{category}} (click) = 'chooseCat(category)'>{{category}}</button></ion-item>
+          <ion-item><button ion-button clear class={{category}} (click)='chooseCat(category)'>{{category}}</button></ion-item>
         </ion-list>
         <!--</ion-col>-->
       </ion-row>
@@ -48,28 +53,29 @@
   <div *ngIf="closed" class="smalltop">
     <ion-grid>
       <ion-row wrap>
-        <p col>Categorized as <a (click)='openCat()'>{{cate}}</a><br>Sorted by <a>Newest</a></p>
+        <ion-col col-4><img src="img/Logo.png"></ion-col>
+       <ion-col col-8><p no-margin>Categorized as <a (click)='openCat()'>{{cate}}</a><br>Sorted by <a>Newest</a></p></ion-col>
       </ion-row>
     </ion-grid>
   </div>
 
   <div class="bottom">
-      <ion-row wrap>
-        
+    <ion-row wrap>
 
-           <ion-item *ngFor="let m of media; let i = index;" class="item-text-wrap">
-            <ion-card>
-              <video  loop class="video" [poster]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')" onclick="this.paused?this.play():this.pause();">
-                <source type="video/mp4" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + m.filename">
-              </video>
-              <ion-card-content >
-                <ion-card-title>{{m.title}}</ion-card-title>
-                <div *ngIf="mediaInfo[i] !== null" class="info">
-                    <div *ngIf="loginservice.logged">user: {{mediaInfo[i].user.username}}</div>
-                    <br>
-                    <div *ngIf="media[i].description != ''">desc: {{m.description}}</div> 
-                </div>
-              </ion-card-content>
+
+      <ion-item *ngFor="let m of media; let i = index;" class="item-text-wrap">
+        <ion-card>
+          <video loop class="video" [poster]="'http://media.mw.metropolia.fi/wbma/uploads/' + (m.filename | thumbnail: 'medium')" onclick="this.paused?this.play():this.pause();">
+            <source class="videoc" type="video/mp4" [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + m.filename">
+          </video>
+          <ion-card-content>
+            <ion-card-title>{{m.title}}</ion-card-title>
+            <div *ngIf="mediaInfo[i] !== null" class="info">
+              <div *ngIf="loginservice.logged">user: {{mediaInfo[i].user.username}}</div>
+              <br>
+              <div *ngIf="media[i].description != ''">desc: {{m.description}}</div>
+            </div>
+          </ion-card-content>
 
           <!--<ion-item  *ngFor="let m of media">
             <ion-card>
@@ -79,51 +85,51 @@
                 <p class="info">Description of the video </p>
               </ion-card-content>-->
 
-              <ion-row no-padding>
-                <ion-col>
-                  <button ion-button clear small color="favorite" (click)="addFav(m.file_id, i)" icon-left>
+          <ion-row no-padding>
+            <ion-col>
+              <button ion-button clear small color="favorite" (click)="addFav(m.file_id, i)" icon-left>
                     <ion-icon name='thumbs-up'></ion-icon>
                       favs: {{mediaInfo[i].likes.length}}
                   </button>
-                </ion-col>
-                <ion-col text-center>
-                  <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
+            </ion-col>
+            <ion-col text-center>
+              <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
                     <ion-icon name='chatbubbles'></ion-icon>
                    Comments: {{mediaInfo[i].comments.length}}
                    </button>
-                </ion-col>
-                <ion-col text-right>
-                  <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
+            </ion-col>
+            <ion-col text-right>
+              <button ion-button clear small color="favorite" (click)="navVideo(m.file_id, i)" icon-left>
                     <ion-icon name='more'></ion-icon>
                     More
                   </button>
-                </ion-col>
-              </ion-row>
+            </ion-col>
+          </ion-row>
 
-              <ion-row no-padding>
-                    <div class="tag-container" *ngIf="mediaInfo[i].tags.length>1">
-                      <p *ngFor="let tagarray of mediaInfo[i].tags | slice:1">
-                        <span class="tag" (click) = 'chooseCat(tagarray.tag)'>
+          <ion-row no-padding>
+            <div class="tag-container" *ngIf="mediaInfo[i].tags.length>1">
+              <p *ngFor="let tagarray of mediaInfo[i].tags | slice:1">
+                <span class="tag" (click)='chooseCat(tagarray.tag)'>
                           {{ tagarray.tag }}
                         </span>
-                      </p>
-                    </div>
-            </ion-row>
+              </p>
+            </div>
+          </ion-row>
 
-            <div *ngFor="let comment of comments; let j = index;">
-                <ion-list *ngIf="commentOpen" class="comments" >
-                  <ion-item >{{comment[j].comment}}</ion-item>
-                </ion-list>
-              </div>
-
-
-            </ion-card>
-          </ion-item>
+          <div *ngFor="let comment of comments; let j = index;">
+            <ion-list *ngIf="commentOpen" class="comments">
+              <ion-item>{{comment[j].comment}}</ion-item>
+            </ion-list>
+          </div>
 
 
+        </ion-card>
+      </ion-item>
 
-        
-      </ion-row>
+
+
+
+    </ion-row>
   </div>
 
 </ion-content>

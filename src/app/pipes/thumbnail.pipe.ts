@@ -14,7 +14,7 @@ export class ThumbnailPipe implements PipeTransform {
     } else if (args === 'medium') {
       return file + '-tn320.png';
     } else {
-      return file + '-tn640.png';
+      return file + '';
     }
   }
 

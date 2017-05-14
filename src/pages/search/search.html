@@ -10,12 +10,12 @@
   <ion-toolbar>
     <ion-grid>
       <ion-row>
-        <ion-col ion-button clear color="light" (click)='navBack();'>Back</ion-col>
+        <ion-col ion-button clear color="light" (click)='navHome();'>Back</ion-col>
         <!--<button ion-button menuToggle><ion-icon name="menu"></button>-->
-        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navUpload();'>Upload</ion-col>
+        <!--<ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navUpload();'>Upload</ion-col>
         <ion-col *ngIf="loginservice.logged == false" ion-button clear color="light" (click)='navLogin();'>Login</ion-col>
         <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='openUser(loginservice.getUser().user_id);'>Hello, {{loginservice.getUser().username}}</ion-col>
-        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navLogout();'>Logout</ion-col>
+        <ion-col *ngIf="loginservice.logged == true" ion-button clear color="light" (click)='navLogout();'>Logout</ion-col>-->
       </ion-row>
     </ion-grid>
   </ion-toolbar>

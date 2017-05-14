@@ -5,7 +5,7 @@ import { LoginPage } from './../login/login';
 import { Mediaservice } from './../../providers/mediaservice';
 import { Loginservice } from './../../providers/loginservice';
 import { Component} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { LoadingController } from 'ionic-angular';
 
@@ -31,7 +31,7 @@ export class VideoPage {
     animate: false
   }
 
-  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, private mediaService: Mediaservice, private loginservice: Loginservice, public http: Http) {
+  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, private mediaService: Mediaservice, private loginservice: Loginservice, public http: Http,  public menuCtrl: MenuController) {
     if (localStorage.getItem("user") !== null) {
       this.loginservice.setUser(JSON.parse(localStorage.getItem("user")));
       this.loginservice.logged = true;
@@ -132,6 +132,18 @@ export class VideoPage {
   navBack() {
     this.navCtrl.pop();
   }
+
+  openMenu() {
+   this.menuCtrl.open();
+  }
+
+   closeMenu() {
+   this.menuCtrl.close();
+ }
+
+ toggleMenu() {
+   this.menuCtrl.toggle();
+ }
 
 
 

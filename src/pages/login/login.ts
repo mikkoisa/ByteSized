@@ -45,6 +45,10 @@ export class LoginPage {
     this.navCtrl.setRoot(HomePage)
   }
 
+  navBack() {
+    this.navCtrl.pop();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
@@ -60,6 +64,6 @@ export class LoginPage {
       console.log(this.loginUser);
       this.loginService.setUser(this.loginUser);
       this.loginService.login();
-      
+      this.navHome();
     }
 }

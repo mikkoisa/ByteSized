@@ -69,6 +69,7 @@ a {
     border-top-width: 10px;
     border-top-color: #D2B579;
     font-size: 175%;
+    padding-left:0%;
 }
 
 .bottom{
@@ -183,6 +184,10 @@ a {
 
 .item-inner {
     border-bottom: 0px;
+}
+
+.md .menu-inner {
+    background-color: seashell;
 }
 
 
